@@ -1,0 +1,43 @@
+public class HospitalManagementSystem {
+
+    public static void main(String[] args) {
+        Patient patient = new Patient("John Doe");
+
+        try {
+            patient.setAge(25);
+            System.out.println("Patient age set successfully.");
+        } catch (InvalidAgeException e) {
+            System.out.println("Error setting age: " + e.getMessage());
+        }
+
+        try {
+            patient.setAge(-10);
+        } catch (InvalidAgeException e) {
+            System.out.println("Error setting age: " + e.getMessage());
+        }
+    }
+}
+
+class InvalidAgeException extends Exception {
+
+    public InvalidAgeException(int age) {
+        super("Invalid age provided: " + age + ". Age must be between 0 and 130.");
+    }
+}
+
+class Patient {
+
+    private String name;
+    private int age;
+
+    public Patient(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 130) {
+            throw new InvalidAgeException(age);
+        }
+        this.age = age;
+    }
+}
